@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Portfolio</title>
+    <!-- Include CSS stylesheets and JavaScript libraries -->
+    <style>
+        /* styles.css */
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+}
+
+/* Portfolio Summary */
+#portfolio-summary {
+    margin-bottom: 20px;
+}
+
+/* Holdings Table */
+#holdings-table {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+/* Add/Remove Transactions Section */
+#add-remove-transactions {
+    margin-bottom: 20px;
+}
+
+/* Actions */
+#add-remove-transactions a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+#add-remove-transactions a:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+    </style>
+    
+</head>
+<body>
+    <header>
+        <h1>Cryptocurrency Portfolio</h1>
+        <!-- Navigation links -->
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <!-- Add more navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="portfolio-summary">
+            <h2>Portfolio Summary</h2>
+            <!-- Summary information -->
+            <p>Total Value: ${{ total_value }}</p>
+            <p>Total Cryptocurrencies: {{ total_cryptos }}</p>
+        </section>
+
+        <section id="holdings-table">
+            <h2>My Holdings</h2>
+            <!-- Table to display cryptocurrency holdings -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cryptocurrency</th>
+                        <th>Symbol</th>
+                        <th>Quantity</th>
+                        <th>Price per Unit</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.cryptocurrency.name }}</td>
+                        <td>{{ transaction.cryptocurrency.symbol }}</td>
+                        <td>{{ transaction.quantity }}</td>
+                        <td>${{ transaction.price_per_unit }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section id="add-remove-transactions">
+            <h2>Actions</h2>
+            <div>
+                <a href="{% url 'add_transaction' %}">Add Transaction</a>
+                <a href="{% url 'add_cryptocurrency' %}">Add Cryptocurrency</a>
+            </div>
+       
+        </section>
+
+        <section id="charts-graphs">
+            <h2>Portfolio Charts</h2>
+            <!-- Charts/graphs to visualize portfolio data -->
+            <canvas id="portfolio-chart"></canvas>
+            <!-- Include JavaScript for chart creation -->
+            <script src="path/to/charting-library.js"></script>
+              <script>
+                // JavaScript code to create portfolio chart
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Footer content -->
+        <p>&copy; 2024 Cryptocurrency Portfolio Tracker</p>
+    </footer>
+</body>
+</html>
+<!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- JavaScript code for creating portfolio chart -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get data for the pie chart
+        var labels = [];
+        var data = [];
+        {% for transaction in transactions %}
+            labels.push("{{ transaction.cryptocurrency }}");
+            data.push({{ transaction.quantity }});
+        {% endfor %}
+
+        // Create pie chart
+        var ctx = document.getElementById('portfolio-chart').getContext('2d');
+        var portfolioChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cryptocurrency Distribution',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'right',
+                    labels: {
+                        fontSize: 12
+                    }
+                }
+            }
+        });
+    });
+</script>

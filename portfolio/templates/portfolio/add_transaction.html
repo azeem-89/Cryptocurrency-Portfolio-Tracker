@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction</title>
+    <style>
+        /* styles.css */
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+}
+
+/* Portfolio Summary */
+#portfolio-summary {
+    margin-bottom: 20px;
+}
+
+/* Holdings Table */
+#holdings-table {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+/* Add/Remove Transactions Section */
+#add-remove-transactions {
+    margin-bottom: 20px;
+}
+
+/* Actions */
+#add-remove-transactions a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+#add-remove-transactions a:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add Transaction</h1>
+    </header>
+
+    <main>
+        <section id="add-transaction-form">
+            <h2>Enter Transaction Details</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add Transaction</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cryptocurrency Portfolio Tracker</p>
+    </footer>
+</body>
+</html>
